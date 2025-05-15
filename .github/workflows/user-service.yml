@@ -14,6 +14,12 @@ jobs:
         working-directory: ./robot-shop_h/user
         run: npm install
 
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Authenticate Snyk CLI
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
       - name: Run Snyk test
         working-directory: ./robot-shop_h/user
         run: snyk test --all-projects --json-file-output=snyk-report.json
