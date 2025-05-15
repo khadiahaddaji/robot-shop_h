@@ -14,10 +14,10 @@ jobs:
         run: npm install -g snyk
 
       - name: Run Snyk test
-        run: snyk test --all-projects
+        run: snyk test --all-projects --json-file-output=snyk-report.json
 
       - name: Upload Snyk report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: snyk-report
           path: snyk-report.json
