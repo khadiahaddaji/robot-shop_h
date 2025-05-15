@@ -23,11 +23,11 @@ jobs:
       - name: Run Snyk test
         working-directory: /home/runner/work/robot-shop_h/robot-shop_h/user 
         run: |
-          snyk test --json-file-output=../../snyk-user-report.json || true
+          snyk test --json-file-output=./snyk-report.json || true
 
       - name: Upload Snyk report
         uses: actions/upload-artifact@v4
         with:
           name: snyk-report
-          path: snyk-report.json
+          path:  robot-shop_h/user/snyk-report.json
 
