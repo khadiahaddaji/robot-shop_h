@@ -20,4 +20,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: snyk-report
+          path: snyk-report.json
 
