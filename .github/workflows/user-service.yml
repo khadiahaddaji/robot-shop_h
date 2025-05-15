@@ -1,9 +1,9 @@
 name: CI for User Service
 
-#on:
-# push:
-#   paths:
-#     - 'user/**'
+on:
+  push:
+    paths:
+      - 'user/**'
 
 jobs:
   build:
