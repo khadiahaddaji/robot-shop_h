@@ -1,9 +1,7 @@
 name: CI for User Service
 
 on:
-  push:
-    paths:
-      - 'user/**'
+  workflow_dispatch:
 
 jobs:
   build:
