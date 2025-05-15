@@ -3,6 +3,9 @@ name: CI for User Service
 on:
   workflow_dispatch:
 
+env:
+  SCAN_PATH: '/home/runner/work/robot-shop_h/robot-shop_h/user'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -11,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Node.js dependencies for user service
-        working-directory : /home/runner/work/robot-shop_h/robot-shop_h/user
+        working-directory : ${{ env.SCAN_PATH }}
         run: npm install
 
       - name: Install Snyk CLI
@@ -21,14 +24,14 @@ jobs:
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
       - name: Run Snyk test
-        working-directory: /home/runner/work/robot-shop_h/robot-shop_h/user 
+        working-directory: ${{ env.SCAN_PATH }} 
         run: |
-          snyk test --json-file-output=/home/runner/work/robot-shop_h/robot-shop_h/user/snyk-report.json || true
+          snyk test --json-file-output=${{ env.SCAN_PATH }}/snyk-report.json || true
 
       - name: Upload Snyk report for user service
         uses: actions/upload-artifact@v4
         with:
           name: snyk-user-report
-          path: /home/runner/work/robot-shop_h/robot-shop_h/user/snyk-report.json
+          path: ${{ env.SCAN_PATH }}/snyk-report.json
           if-no-files-found: error
 
