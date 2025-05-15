@@ -23,11 +23,12 @@ jobs:
       - name: Run Snyk test
         working-directory: /home/runner/work/robot-shop_h/robot-shop_h/user 
         run: |
-          snyk test --json-file-output=./snyk-report.json || true
+          snyk test --json-file-output=/home/runner/work/robot-shop_h/robot-shop_h/user/snyk-report.json || true
 
-      - name: Upload Snyk report
+      - name: Upload Snyk report for user service
         uses: actions/upload-artifact@v4
         with:
-          name: snyk-report
-          path:  robot-shop_h/user/snyk-report.json
+          name: snyk-user-report
+          path: /home/runner/work/robot-shop_h/robot-shop_h/user/snyk-report.json
+          if-no-files-found: error
 
