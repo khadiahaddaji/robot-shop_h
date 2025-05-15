@@ -10,10 +10,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Snyk CLI
-        run: npm install -g snyk
+      - name: Install Node.js dependencies for user service
+        working-directory: ./robot-shop_h/user
+        run: npm install
 
       - name: Run Snyk test
+        working-directory: ./robot-shop_h/user
         run: snyk test --all-projects --json-file-output=snyk-report.json
 
       - name: Upload Snyk report
