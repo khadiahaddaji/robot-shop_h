@@ -3,12 +3,14 @@ on:
   push:
     branches:
       - 'master'
-    paths-ignore:
-      - 'DCOS/**'
-      - 'K8s/**'
-      - 'load-gen/**'
-      - 'OpenShift/**'
-      - 'Swarm/**'
+    paths:
+      - 'user/**'
+      #   paths-ignore:
+      #- 'DCOS/**'
+      #- 'K8s/**'
+      #- 'load-gen/**'
+      #- 'OpenShift/**'
+      #- 'Swarm/**'
 
 jobs:
   test:
