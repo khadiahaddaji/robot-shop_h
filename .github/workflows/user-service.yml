@@ -1,0 +1,24 @@
+name: CI for User Service
+
+on:
+  push:
+    paths:
+      - 'user/**'
+jops:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk test
+        run: snyk test --all-projects
+
+      - name: Upload Snyk report
+        uses: actions/upload-artifact@v2
+        with:
+          name: snyk-report
+
