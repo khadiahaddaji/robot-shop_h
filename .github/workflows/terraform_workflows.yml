@@ -13,6 +13,10 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.0.0
+      - name: Install tfsec
+        run: |
+          curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
+   
       - name: terraform scan
         run:  .tfsec scan --config-file .tfsec.yml --output-format json --output-file tfsec-report.json
         
