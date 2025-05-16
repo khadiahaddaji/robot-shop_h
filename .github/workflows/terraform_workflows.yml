@@ -17,8 +17,8 @@ jobs:
         run: |
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
    
-      - name: terraform scan
-        run:  .tfsec scan --config-file .tfsec.yml --output-format json --output-file tfsec-report.json
+      - name: Run tfsec scan
+        run: tfsec --config-file .tfsec.yml --output-format json --output-file tfsec-report.json
         
       - name: Upload tfsec report
         uses: actions/upload-artifact@v4
