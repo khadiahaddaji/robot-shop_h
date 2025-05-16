@@ -20,6 +20,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfsec-report
+          path: tfsec-report.json
+     
 
       - name: Terraform Init
         run: terraform init
