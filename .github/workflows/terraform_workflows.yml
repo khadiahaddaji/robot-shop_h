@@ -21,7 +21,7 @@ jobs:
         run: tfsec . --config-file .tfsec.yml --soft-fail
   
       - name: Terraform Init
-        run: terraform init
+        run: terraform -chdir=terraform init
 
       - name: Terraform Plan
         run: terraform -chdir=terraform plan
