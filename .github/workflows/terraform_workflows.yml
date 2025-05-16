@@ -32,6 +32,8 @@ jobs:
         run: terraform -chdir=terraform plan
 
       - name: Terraform Apply
-        run: terraform apply -chdir=terraform -auto-approve
+        run: |
+            cd terraform
+            terraform apply -auto-approve
 
  
