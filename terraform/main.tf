@@ -14,7 +14,7 @@ provider "aws" {
 resource "aws_instance" "my_vm" {
   ami           = "ami-03b82db05dca8118d" 
   instance_type = "t2.micro"
-  key_name     = "my-generated-key"
+  key_name     = "my-generated-key "
   subnet_id     = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.ssh_access.id] 
   associate_public_ip_address = true  
