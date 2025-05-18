@@ -35,8 +35,19 @@ jobs:
           path: ${{ env.SCAN_PATH }}/snyk-report.json
           if-no-files-found: error
 
-      - name: Build Docker image for user service
-        working-directory: ${{ env.SCAN_PATH }}
-        run: docker build -t user-service .
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Docker image
+        working-directory : ${{ env.SCAN_PATH }}
+        env:
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ secrets.IMAGE_TAG || github.sha }}
+          run: |
+            docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+            docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
   
   
