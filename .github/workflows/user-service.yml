@@ -35,3 +35,8 @@ jobs:
           path: ${{ env.SCAN_PATH }}/snyk-report.json
           if-no-files-found: error
 
+      - name: Build Docker image for user service
+        working-directory: ${{ env.SCAN_PATH }}
+        run: docker build -t user-service .
+  
+  

@@ -78,7 +78,7 @@ resource "aws_security_group" "ssh_access" {
 }
 
 resource "aws_ecr_repository" "ECR_0PS" {
-  name                 = "ECR_0PS"
+  name                 = "ecr-0ps"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
