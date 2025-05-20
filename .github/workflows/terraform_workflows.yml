@@ -31,8 +31,15 @@ jobs:
       - name: Terraform Plan
         run: terraform -chdir=terraform plan
 
-      - name: Terraform Apply
-        run: |
-            cd terraform
-            terraform apply -auto-approve
+      # - name: Terraform Apply
+      #   run: |
+      #       cd terraform
+      #       terraform apply -auto-approve
+            
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
             
