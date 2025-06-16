@@ -1,4 +1,5 @@
 name: terraform pipeline
+
 on:
   workflow_dispatch:
 
@@ -18,28 +19,31 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: 1.0.0
+
       - name: Install tfsec
         run: |
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
-   
+
       - name: Run tfsec scan
         run: tfsec . --config-file .tfsec.yml --soft-fail
-  
+
       - name: Terraform Init
         run: terraform -chdir=terraform init
 
       - name: Terraform Plan
         run: terraform -chdir=terraform plan
 
+      # Uncomment to apply changes
       # - name: Terraform Apply
-      #   run: |
-      #       cd terraform
-      #       terraform apply -auto-approve
-            
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #   run: terraform -chdir=terraform apply -auto-approve
 
-            
+      # Uncomment to destroy infrastructure
+      # - name: Terraform Destroy
+      #   run: terraform -chdir=terraform destroy -auto-approve
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_URI=802190220192.dkr.ecr.us-east-2.amazonaws.com/kh/123:latest
+          docker build -t $IMAGE_URI .
+          docker push $IMAGE_URI
+          
